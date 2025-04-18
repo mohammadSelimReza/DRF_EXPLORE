@@ -1,26 +1,29 @@
 from .serializers import ProductSerializer,OrderSerializer
 from .models import Product,Order
-from rest_framework.response import Response
-from rest_framework.decorators import api_view
-from rest_framework import status
-from django.shortcuts import get_object_or_404
-# Create your views here.
-@api_view(['GET'])
-def product_list(request):
-    products = Product.objects.all()
-    print(products)
-    serializer = ProductSerializer(products,many=True)
-    return Response({'products':serializer.data},status=status.HTTP_200_OK)
+from rest_framework import generics
+from rest_framework.permissions import AllowAny,IsAuthenticated
 
-@api_view(['GET'])
-def product_detail(request,id):
-    product = get_object_or_404(Product,id=id)
-    serializer = ProductSerializer(product)
-    # return Response({'product':serializer.data},status=status.HTTP_200_OK)
-    return Response(serializer.data)
+class ProductList(generics.ListCreateAPIView):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
 
-@api_view(['GET'])
-def order_list(request):
-    orders = Order.objects.all()
-    serializer = OrderSerializer(orders,many=True)
-    return Response({'orders':serializer.data},status=status.HTTP_200_OK)
+    def get_permissions(self):
+        self.permission_classes = [AllowAny]
+        if self.request.method == "POST":
+            self.permission_classes = [IsAuthenticated]
+        return super().get_permissions()    
+    
+
+class ProductDetailsView(generics.RetrieveAPIView):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+    lookup_field = 'id'
+    
+
+class OrderListView(generics.ListAPIView):
+    queryset = Order.objects.prefetch_related('items__product','user')
+    serializer_class = OrderSerializer
+    # permission_classes = [permissions.IsAuthenticated]
+    # def get_queryset(self):
+    #     queryset = super().get_queryset()
+    #     return queryset.filter(user=self.request.user)
