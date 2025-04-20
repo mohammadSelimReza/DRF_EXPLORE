@@ -2,10 +2,12 @@ from .serializers import ProductSerializer, OrderSerializer
 from .models import Product, Order
 from rest_framework import generics
 from rest_framework.permissions import AllowAny, IsAuthenticated
+from .filters import ProductFilter
 
 
 class ProductList(generics.ListCreateAPIView):
     serializer_class = ProductSerializer
+    filterset_class = ProductFilter
 
     def get_permissions(self):
         self.permission_classes = [AllowAny]
