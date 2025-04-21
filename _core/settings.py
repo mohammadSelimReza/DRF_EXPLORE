@@ -29,7 +29,7 @@ SECRET_KEY = os.getenv("KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["192.168.10.34", "127.0.0.1"]
+ALLOWED_HOSTS = ["192.168.10.34", "127.0.0.1", "192.168.1.199"]
 
 
 # Application definition
@@ -183,3 +183,14 @@ EMAIL_HOST_USER = "your_id@gmail.com"  # Your email address
 EMAIL_HOST_PASSWORD = "your host password"  # Your email password
 EMAIL_PORT = 465  # SMTP port
 EMAIL_USE_SSL = True  # Use SSL for secure connection
+
+
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://127.0.0.1:6379/1",
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+        },
+    }
+}

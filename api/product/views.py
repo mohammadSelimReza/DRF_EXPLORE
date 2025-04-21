@@ -6,6 +6,9 @@ from .filters import ProductFilter
 from rest_framework import filters
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.pagination import PageNumberPagination
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import cache_page
+import time
 
 
 class ProductPagination(PageNumberPagination):
@@ -32,7 +35,12 @@ class ProductList(generics.ListCreateAPIView):
             self.permission_classes = [IsAuthenticated]
         return super().get_permissions()
 
+    @method_decorator(cache_page(60 * 1, key_prefix="products_list"))
+    def list(self, request, *args, **kwargs):
+        return super().list(request, *args, **kwargs)
+
     def get_queryset(self):
+        time.sleep(2)
         product_id = self.request.query_params.get("id")
         if product_id:
             return Product.objects.filter(id=product_id)
@@ -40,8 +48,17 @@ class ProductList(generics.ListCreateAPIView):
 
 
 class OrderListView(generics.ListAPIView):
-    queryset = Order.objects.prefetch_related("items__product", "user")
     serializer_class = OrderSerializer
+
+    @method_decorator(cache_page(60 * 1, key_prefix="order"))
+    def list(self, request, *args, **kwargs):
+        return super().list(request, *args, **kwargs)
+
+    def get_queryset(self):
+        time.sleep(2)
+        qs = Order.objects.prefetch_related("items__product", "user")
+        return qs
+
     # permission_classes = [permissions.IsAuthenticated]
     # def get_queryset(self):
     #     queryset = super().get_queryset()
