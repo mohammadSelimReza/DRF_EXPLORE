@@ -29,7 +29,7 @@ SECRET_KEY = os.getenv("KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["192.168.10.34", "127.0.0.1", "192.168.1.199"]
+ALLOWED_HOSTS = ["192.168.10.150", "127.0.0.1", "192.168.1.199"]
 
 
 # Application definition
@@ -191,6 +191,6 @@ CACHES = {
         "LOCATION": "redis://127.0.0.1:6379/1",
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
-        },
+        }
     }
 }

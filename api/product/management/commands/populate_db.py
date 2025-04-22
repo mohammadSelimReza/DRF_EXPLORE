@@ -54,6 +54,150 @@ class Command(BaseCommand):
                 price=Decimal("500.05"),
                 quantity=0,
             ),
+            Product(
+                name="A Scanner Darkly",
+                info=lorem_ipsum.paragraph(),
+                price=Decimal("12.99"),
+                quantity=4,
+            ),
+            Product(
+                name="Coffee Machine",
+                info=lorem_ipsum.paragraph(),
+                price=Decimal("70.99"),
+                quantity=6,
+            ),
+            Product(
+                name="Velvet Underground & Nico",
+                info=lorem_ipsum.paragraph(),
+                price=Decimal("15.99"),
+                quantity=11,
+            ),
+            Product(
+                name="Enter the Wu-Tang (36 Chambers)",
+                info=lorem_ipsum.paragraph(),
+                price=Decimal("17.99"),
+                quantity=2,
+            ),
+            Product(
+                name="Digital Camera",
+                info=lorem_ipsum.paragraph(),
+                price=Decimal("350.99"),
+                quantity=4,
+            ),
+            Product(
+                name="Watch",
+                info=lorem_ipsum.paragraph(),
+                price=Decimal("500.05"),
+                quantity=0,
+            ),
+            Product(
+                name="A Scanner Darkly",
+                info=lorem_ipsum.paragraph(),
+                price=Decimal("12.99"),
+                quantity=4,
+            ),
+            Product(
+                name="Coffee Machine",
+                info=lorem_ipsum.paragraph(),
+                price=Decimal("70.99"),
+                quantity=6,
+            ),
+            Product(
+                name="Velvet Underground & Nico",
+                info=lorem_ipsum.paragraph(),
+                price=Decimal("15.99"),
+                quantity=11,
+            ),
+            Product(
+                name="Enter the Wu-Tang (36 Chambers)",
+                info=lorem_ipsum.paragraph(),
+                price=Decimal("17.99"),
+                quantity=2,
+            ),
+            Product(
+                name="Digital Camera",
+                info=lorem_ipsum.paragraph(),
+                price=Decimal("350.99"),
+                quantity=4,
+            ),
+            Product(
+                name="Watch",
+                info=lorem_ipsum.paragraph(),
+                price=Decimal("500.05"),
+                quantity=0,
+            ),
+            Product(
+                name="A Scanner Darkly",
+                info=lorem_ipsum.paragraph(),
+                price=Decimal("12.99"),
+                quantity=4,
+            ),
+            Product(
+                name="Coffee Machine",
+                info=lorem_ipsum.paragraph(),
+                price=Decimal("70.99"),
+                quantity=6,
+            ),
+            Product(
+                name="Velvet Underground & Nico",
+                info=lorem_ipsum.paragraph(),
+                price=Decimal("15.99"),
+                quantity=11,
+            ),
+            Product(
+                name="Enter the Wu-Tang (36 Chambers)",
+                info=lorem_ipsum.paragraph(),
+                price=Decimal("17.99"),
+                quantity=2,
+            ),
+            Product(
+                name="Digital Camera",
+                info=lorem_ipsum.paragraph(),
+                price=Decimal("350.99"),
+                quantity=4,
+            ),
+            Product(
+                name="Watch",
+                info=lorem_ipsum.paragraph(),
+                price=Decimal("500.05"),
+                quantity=0,
+            ),
+            Product(
+                name="A Scanner Darkly",
+                info=lorem_ipsum.paragraph(),
+                price=Decimal("12.99"),
+                quantity=4,
+            ),
+            Product(
+                name="Coffee Machine",
+                info=lorem_ipsum.paragraph(),
+                price=Decimal("70.99"),
+                quantity=6,
+            ),
+            Product(
+                name="Velvet Underground & Nico",
+                info=lorem_ipsum.paragraph(),
+                price=Decimal("15.99"),
+                quantity=11,
+            ),
+            Product(
+                name="Enter the Wu-Tang (36 Chambers)",
+                info=lorem_ipsum.paragraph(),
+                price=Decimal("17.99"),
+                quantity=2,
+            ),
+            Product(
+                name="Digital Camera",
+                info=lorem_ipsum.paragraph(),
+                price=Decimal("350.99"),
+                quantity=4,
+            ),
+            Product(
+                name="Watch",
+                info=lorem_ipsum.paragraph(),
+                price=Decimal("500.05"),
+                quantity=0,
+            ),
         ]
 
         # create products & re-fetch from DB
@@ -61,10 +205,10 @@ class Command(BaseCommand):
         products = Product.objects.all()
 
         # create some dummy orders tied to the superuser
-        for _ in range(3):
+        for _ in range(300):
             # create an Order with 2 order items
             order = Order.objects.create(user=user)
-            for product in random.sample(list(products), 2):
+            for product in random.sample(list(products), 10):
                 OrderItem.objects.create(
-                    order=order, product=product, quantity=random.randint(1, 3)
+                    order=order, product=product, quantity=random.randint(1, 10)
                 )

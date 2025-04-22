@@ -40,7 +40,6 @@ class ProductList(generics.ListCreateAPIView):
         return super().list(request, *args, **kwargs)
 
     def get_queryset(self):
-        time.sleep(2)
         product_id = self.request.query_params.get("id")
         if product_id:
             return Product.objects.filter(id=product_id)
@@ -55,7 +54,6 @@ class OrderListView(generics.ListAPIView):
         return super().list(request, *args, **kwargs)
 
     def get_queryset(self):
-        time.sleep(2)
         qs = Order.objects.prefetch_related("items__product", "user")
         return qs
 
